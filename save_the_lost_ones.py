@@ -2,7 +2,6 @@
 import pygame as pg
 import random
 import os
-import time
 
 
 # Class Robot
@@ -123,15 +122,15 @@ class Monster:
 
     def speed_up(self):
         if self.__speed_x < 0:
-            self.__speed_x -= random.choice([0.5, 0.75, 1, 1.25, 1.5])
+            self.__speed_x -= random.choice([0.5, 0.75])
         else:
-            self.__speed_x += random.choice([0.5, 0.75, 1, 1.25, 1.5])
+            self.__speed_x += random.choice([0.5, 0.75])
             
         
         if self.__speed_y < 0:
-            self.__speed_y -= random.choice([0.5, 0.75, 1, 1.25, 1.5])
+            self.__speed_y -= random.choice([0.5, 0.75])
         else:
-            self.__speed_y += random.choice([0.5, 0.75, 1, 1.25, 1.5])
+            self.__speed_y += random.choice([0.5, 0.75])
     
 
 # Class Coin
