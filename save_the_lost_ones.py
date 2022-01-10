@@ -51,11 +51,11 @@ class Robot:
         if (self.__y + self.__image.get_height()) < self.__screen_height:
             self.__y += 0.5
     
-    def collide(self, toinen):
-        if self.right_side() >= toinen.left_side() and \
-            self.left_side() <= toinen.right_side() and \
-            self.top_side() <= toinen.bottom_side() and \
-            self.bottom_side() >= toinen.top_side():
+    def collide(self, other):
+        if self.right_side() >= other.left_side() and \
+            self.left_side() <= other.right_side() and \
+            self.top_side() <= other.bottom_side() and \
+            self.bottom_side() >= other.top_side():
                 return True
         return False
 
@@ -112,11 +112,11 @@ class Monster:
         if direction == "to_left":
             self.__speed_x = -(self.__speed_x)
 
-    def collide(self, toinen):
-        if self.right_side() >= toinen.left_side() and \
-            self.left_side() <= toinen.right_side() and \
-            self.top_side() <= toinen.bottom_side() and \
-            self.bottom_side() >= toinen.top_side():
+    def collide(self, other):
+        if self.right_side() >= other.left_side() and \
+            self.left_side() <= other.right_side() and \
+            self.top_side() <= other.bottom_side() and \
+            self.bottom_side() >= other.top_side():
                 return True
         return False
 
@@ -221,10 +221,10 @@ class SaveTheLostOnes:
             pg.display.set_caption("Save the Lost Ones")
 
             self.find_robot()
-            self.find_morsters()
+            self.find_monsters()
             self.find_coins()
             self.find_doors()
-            self.liiku()
+            self.move()
 
             self.draw_main_menu()
             
@@ -289,8 +289,8 @@ class SaveTheLostOnes:
         img_folder = os.path.join(game_folder, "img")
 
         self.images = []
-        for nimi in ["robo", "coin", "soul", "door"]:
-            self.images.append(pg.image.load(os.path.join(img_folder, nimi + ".png")))
+        for name in ["robo", "coin", "soul", "door"]:
+            self.images.append(pg.image.load(os.path.join(img_folder, name + ".png")))
 
     # Create new game and load map
     def new_game(self):
@@ -345,7 +345,7 @@ class SaveTheLostOnes:
         random.shuffle(self.coins)
 
     # Find all monster from map and add them to list and create object
-    def find_morsters(self):
+    def find_monsters(self):
         self.monsters = []
 
         for y in range(self.height):
@@ -371,7 +371,7 @@ class SaveTheLostOnes:
         self.door_is_open = False
 
     # Check if robot moves statement are True
-    def liiku(self):
+    def move(self):
         self.to_up = False
         self.to_down = False
         self.to_right = False
